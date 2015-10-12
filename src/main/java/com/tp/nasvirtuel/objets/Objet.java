@@ -13,13 +13,17 @@ import javax.swing.ImageIcon;
  * @author yirou
  */
 public abstract class Objet {
+
     protected String nom;
     protected DatesCreation date;
-    public static Icon image=new ImageIcon("src/main/resources/drawable-mdpi/objet.png");
-    public Objet(String nom,DatesCreation date) {
+    public static Icon image = new ImageIcon("src/main/resources/drawable-mdpi/objet.png");
+
+    public Objet(String nom, DatesCreation date) {
         this.nom = nom;
-        this.date=date;
+        this.date = date;
     }
+
+    public abstract void afficherObjet();
 
     public DatesCreation getDate() {
         return date;
@@ -29,7 +33,6 @@ public abstract class Objet {
         this.date = date;
     }
 
-    
     public String getNom() {
         return nom;
     }
@@ -37,6 +40,5 @@ public abstract class Objet {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    
-    
+
 }

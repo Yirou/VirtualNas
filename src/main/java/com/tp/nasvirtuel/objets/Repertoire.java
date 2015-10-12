@@ -31,4 +31,11 @@ public class Repertoire extends Objet {
         return listeObjets;
     }
 
+    @Override
+    public void afficherObjet() {
+        for (Objet objet : listeObjets) {
+            System.out.println(objet.getNom());
+        }
+    }
+
 }

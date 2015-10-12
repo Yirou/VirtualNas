@@ -18,6 +18,11 @@ public class Document extends Objet{
         super(nom, date);
     }
 
+    @Override
+    public void afficherObjet() {
+        System.out.println("Je suis un Document");
+    }
+
    
     
 }
