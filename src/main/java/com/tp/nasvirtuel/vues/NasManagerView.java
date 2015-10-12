@@ -11,13 +11,16 @@ import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.objets.Repertoire;
 import com.tp.nasvirtuel.users.Membre;
 import com.tp.nasvirtuel.vues.listener.ListeGroupeViewListener;
+import com.tp.nasvirtuel.vues.listener.ObjetListener;
 import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -37,7 +40,6 @@ public class NasManagerView extends javax.swing.JFrame {
      */
     private NasManagerView(UdsView udsView, Membre membreActif) {
         initComponents();
-
         setLocationRelativeTo(null);
         setResizable(false);
         btn_addGroupe.setIcon(new ImageIcon("src/main/resources/drawable-mdpi/add.png"));
@@ -48,7 +50,7 @@ public class NasManagerView extends javax.swing.JFrame {
         this.udsView = udsView;
         this.membreActif = membreActif;
         this.groupeListView.addListSelectionListener(new ListeGroupeViewListener());
-        this.panelObjetContent.setLayout(new GridLayout(15, 10, 5, 5));
+        this.panelObjetContent.setLayout(new FlowLayout());
         setColor();
 
     }
@@ -62,30 +64,36 @@ public class NasManagerView extends javax.swing.JFrame {
     }
 
     public void accederAuGroupe(Groupe groupe) {
-       if( membreActif.accederAuGroupe(groupe)){
-           groupe.lireContenu();
-       }
-        
-//        JButton component;
-//        for (Objet objet : groupe.getListeObjets()) {
-//            String classe = objet.getClass().getSimpleName();
-//            System.out.println(objet.getNom());
-//            switch (classe) {
-//                case "Document":
-//                    component = new JButton();
-//                    component.setIcon(Document.image);
-//                    break;
-//                case "Repertoire":
-//                    component = new JButton();
-//                    component.setIcon(Repertoire.image);
-//                    break;
-//                default:
-//                    component = new JButton();
-//                    component.setIcon(Objet.image);
-//                    break;
-//            }
-//            panelObjetContent.add(component);
-//        }
+        if (membreActif.accederAuGroupe(groupe)) {
+            groupe.lireContenu();
+        }
+
+        JButton component;
+        panelObjetContent.removeAll();
+        panelObjetContent.revalidate();
+        panelObjetContent.repaint();
+        for (Objet objet : groupe.getListeObjets()) {
+            String classe = objet.getClass().getSimpleName();
+            System.out.println(objet.getNom());
+            switch (classe) {
+                case "Document":
+                    component = new JButton();
+                    component.setIcon(Document.image);
+                    break;
+                case "Repertoire":
+                    component = new JButton();
+                    component.setIcon(Repertoire.image);
+                    break;
+                default:
+                    component = new JButton();
+                    component.setIcon(Objet.image);
+            }
+            component.setPreferredSize(new Dimension(52, 52));
+            component.addActionListener(new ObjetListener());
+            component.setToolTipText(objet.getNom());
+            panelObjetContent.add(component);
+        }
+        panelObjetContent.revalidate();
 
     }
 
@@ -114,6 +122,10 @@ public class NasManagerView extends javax.swing.JFrame {
         return udsView;
     }
 
+    public JPanel getPanelObjetContent() {
+        return panelObjetContent;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -127,9 +139,8 @@ public class NasManagerView extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         groupeListView = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
         panelObjetContent = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableContentObjet = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btn_addGroupe = new javax.swing.JButton();
         btn_addUserToGroupe = new javax.swing.JButton();
@@ -148,59 +159,57 @@ public class NasManagerView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(groupeListView);
 
+        jLabel1.setFont(new java.awt.Font("Cantarell", 1, 15)); // NOI18N
+        jLabel1.setText("Liste des groupes disponibles");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         panelObjetContent.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        tableContentObjet.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableContentObjet);
 
         javax.swing.GroupLayout panelObjetContentLayout = new javax.swing.GroupLayout(panelObjetContent);
         panelObjetContent.setLayout(panelObjetContentLayout);
         panelObjetContentLayout.setHorizontalGroup(
             panelObjetContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
+            .addGap(0, 689, Short.MAX_VALUE)
         );
         panelObjetContentLayout.setVerticalGroup(
             panelObjetContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelObjetContentLayout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGap(0, 429, Short.MAX_VALUE)
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        btn_addGroupe.setToolTipText("Ajouter un groupe");
         btn_addGroupe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addGroupeActionPerformed(evt);
             }
         });
 
+        btn_addUserToGroupe.setToolTipText("Ajouter un membre au groupe");
         btn_addUserToGroupe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addUserToGroupeActionPerformed(evt);
             }
         });
 
+        btn_addObject.setToolTipText("Ajouter un objet au groupe");
         btn_addObject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addObjectActionPerformed(evt);
@@ -300,6 +309,7 @@ public class NasManagerView extends javax.swing.JFrame {
     private void btn_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logOutActionPerformed
         this.setVisible(false);
         udsView.setVisible(true);
+        panelObjetContent.removeAll();
     }//GEN-LAST:event_btn_logOutActionPerformed
 
     private void btn_addObjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addObjectActionPerformed
@@ -364,13 +374,12 @@ public class NasManagerView extends javax.swing.JFrame {
     private javax.swing.JButton btn_addUserToGroupe;
     private javax.swing.JButton btn_logOut;
     private javax.swing.JList groupeListView;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelObjetContent;
-    private javax.swing.JTable tableContentObjet;
     // End of variables declaration//GEN-END:variables
 
     private void setColor() {

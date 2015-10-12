@@ -15,24 +15,28 @@ import javax.swing.JOptionPane;
  * @author yirou
  */
 public class PanelDemarrage extends javax.swing.JPanel {
-UdsView udsView;
+
+    UdsView udsView;
+
     /**
      * Creates new form PanelDemarrage
+     *
      * @param udsView
      */
     public PanelDemarrage(UdsView udsView) {
         initComponents();
-        this.udsView=udsView;
-        jLabel1.setHorizontalAlignment(JLabel.CENTER);setColor();
-       
+        this.udsView = udsView;
+        jLabel1.setHorizontalAlignment(JLabel.CENTER);
+        setColor();
+
     }
 
     public UdsView getUdsView() {
         return udsView;
     }
 
-    private void setColor(){
-         jButton1.setBackground(UdsView.color_blue_foncee);
+    private void setColor() {
+        jButton1.setBackground(UdsView.color_blue_foncee);
         jButton2.setBackground(UdsView.color_blue_foncee);
         this.setBackground(UdsView.color_blue);
         panelInfo.setBackground(UdsView.color_blue);
@@ -40,6 +44,7 @@ UdsView udsView;
         jButton2.setForeground(Color.WHITE);
         jLabel1.setForeground(Color.WHITE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,22 +119,25 @@ UdsView udsView;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String pseudo =JOptionPane.showInputDialog(null, "Votre login SVP !");
-        Membre membre=  udsView.getUniversite().verifierSiMembreExiste(pseudo.toLowerCase());
-        if(membre!=null){
-            udsView.setMembreActif(membre);
-            NasManagerView.getInstance().setMembreActif(membre);
-            NasManagerView.getInstance().setUdsView(udsView);
-            NasManagerView.getInstance().setVisible(true);
-            NasManagerView.getInstance().afficherListeDesGroupes();
-            udsView.dispose();
-        }else{
-            JOptionPane.showMessageDialog(null, "Ce membre n'existe pas");
+        String pseudo = JOptionPane.showInputDialog(null, "Votre login SVP !");
+        if (pseudo != null) {
+            Membre membre = udsView.getUniversite().verifierSiMembreExiste(pseudo.toLowerCase());
+            if (membre != null) {
+                udsView.setMembreActif(membre);
+                NasManagerView.getInstance().setMembreActif(membre);
+                NasManagerView.getInstance().setUdsView(udsView);
+                NasManagerView.getInstance().setVisible(true);
+                NasManagerView.getInstance().afficherListeDesGroupes();
+                udsView.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Ce membre n'existe pas");
+            }
         }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       JOptionPane.showMessageDialog(null, "Non pris en charge");
+        JOptionPane.showMessageDialog(null, "Non pris en charge");
     }//GEN-LAST:event_jButton2ActionPerformed
 
 

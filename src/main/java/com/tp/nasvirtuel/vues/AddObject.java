@@ -6,11 +6,7 @@
 package com.tp.nasvirtuel.vues;
 
 import com.tp.nasvirtuel.Groupe;
-import com.tp.nasvirtuel.objets.DatesCreation;
-import com.tp.nasvirtuel.objets.Document;
 import com.tp.nasvirtuel.objets.Objet;
-import com.tp.nasvirtuel.objets.Repertoire;
-import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -110,7 +106,6 @@ public class AddObject extends javax.swing.JFrame {
         Object groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue();
         if (groupe != null) {
             objet = udsView.getMembreActif().ajouterObjet(nomDocument, typeDocument);
-
             String nomGroupe = groupe.toString();
             Groupe grp = udsView.getUniversite().chercherGroupe(nomGroupe);
             grp.ajouterObjet(objet);

@@ -82,8 +82,12 @@ public class Membre {
                 objet.getDate().setObjetModifier(objet);
                 break;
             case "Service":
+                objet = new Document(nomDocument, new DatesCreation(new Date(), this, null));
+                objet.getDate().setObjetModifier(objet);
                 break;
             case "Autre":
+                objet = new Document(nomDocument, new DatesCreation(new Date(), this, null));
+                objet.getDate().setObjetModifier(objet);
                 break;
         }
         return objet;
