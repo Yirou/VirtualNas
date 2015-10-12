@@ -23,6 +23,7 @@ public class Membre {
     protected String nom;
     protected List<Objet> mesObjets = new ArrayList<>();
     protected List<Groupe> groupesCrees = new ArrayList<>();
+    protected List<Groupe> groupesAbonne = new ArrayList<>();
     protected Groupe groupeParDefaut;
 
     public Membre(String nom, Groupe groupeParDefaut) {
@@ -87,6 +88,10 @@ public class Membre {
         }
         return objet;
 
+    }
+
+    public boolean accederAuGroupe(Groupe groupe) {
+        return groupesAbonne.contains(groupe) || groupesCrees.contains(groupe) || groupeParDefaut.equals(groupe);
     }
 
 }

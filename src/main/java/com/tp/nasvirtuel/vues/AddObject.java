@@ -114,7 +114,7 @@ public class AddObject extends javax.swing.JFrame {
             String nomGroupe = groupe.toString();
             Groupe grp = udsView.getUniversite().chercherGroupe(nomGroupe);
             grp.ajouterObjet(objet);
-            NasManagerView.getInstance().afficherObjetsDuGroupe(grp);
+            NasManagerView.getInstance().accederAuGroupe(grp);
             JOptionPane.showMessageDialog(null, "Objet ajouté avec succès!");
             this.dispose();
         } else {

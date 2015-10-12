@@ -25,7 +25,7 @@ public class ListeGroupeViewListener implements ListSelectionListener {
         if (listeGroupe.getSelectedValue() != null) {
             String groupe = listeGroupe.getSelectedValue().toString();
             Groupe grp = NasManagerView.getInstance().getUdsView().getUniversite().chercherGroupe(groupe);
-            NasManagerView.getInstance().afficherObjetsDuGroupe(grp);
+            NasManagerView.getInstance().accederAuGroupe(grp);
 
         }
 

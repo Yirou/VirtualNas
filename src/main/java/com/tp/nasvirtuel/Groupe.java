@@ -87,6 +87,9 @@ public class Groupe {
     }
 
     public List<Object> lireContenu() {
+        for (Objet objet : listeObjets) {
+            System.out.println("Objet " + objet.getNom());
+        }
         return null;
     }
 

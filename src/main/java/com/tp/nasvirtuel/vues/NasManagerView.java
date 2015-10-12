@@ -61,27 +61,31 @@ public class NasManagerView extends javax.swing.JFrame {
         return groupeListView;
     }
 
-    public void afficherObjetsDuGroupe(Groupe groupe) {
-        JButton component;
-        for (Objet objet : groupe.getListeObjets()) {
-            String classe = objet.getClass().getSimpleName();
-            System.out.println(objet.getNom());
-            switch (classe) {
-                case "Document":
-                    component = new JButton();
-                    component.setIcon(Document.image);
-                    break;
-                case "Repertoire":
-                    component = new JButton();
-                    component.setIcon(Repertoire.image);
-                    break;
-                default:
-                    component = new JButton();
-                    component.setIcon(Objet.image);
-                    break;
-            }
-            panelObjetContent.add(component);
-        }
+    public void accederAuGroupe(Groupe groupe) {
+       if( membreActif.accederAuGroupe(groupe)){
+           groupe.lireContenu();
+       }
+        
+//        JButton component;
+//        for (Objet objet : groupe.getListeObjets()) {
+//            String classe = objet.getClass().getSimpleName();
+//            System.out.println(objet.getNom());
+//            switch (classe) {
+//                case "Document":
+//                    component = new JButton();
+//                    component.setIcon(Document.image);
+//                    break;
+//                case "Repertoire":
+//                    component = new JButton();
+//                    component.setIcon(Repertoire.image);
+//                    break;
+//                default:
+//                    component = new JButton();
+//                    component.setIcon(Objet.image);
+//                    break;
+//            }
+//            panelObjetContent.add(component);
+//        }
 
     }
 
