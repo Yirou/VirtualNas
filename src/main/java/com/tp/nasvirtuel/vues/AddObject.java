@@ -116,6 +116,7 @@ public class AddObject extends javax.swing.JFrame {
             grp.ajouterObjet(objet);
             NasManagerView.getInstance().afficherObjetsDuGroupe(grp);
             JOptionPane.showMessageDialog(null, "Objet ajouté avec succès!");
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Veuillez choisir un groupe");
         }

@@ -11,9 +11,7 @@ import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.objets.Repertoire;
 import com.tp.nasvirtuel.users.Membre;
 import com.tp.nasvirtuel.vues.listener.ListeGroupeViewListener;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.util.Vector;
 import javax.swing.ImageIcon;
@@ -27,6 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class NasManagerView extends javax.swing.JFrame {
 
+    private String[] tableHeader = {"Nom objet"};
     private UdsView udsView;
     private static NasManagerView nasManagerView = new NasManagerView(null, null);
     private Membre membreActif;
@@ -83,7 +82,7 @@ public class NasManagerView extends javax.swing.JFrame {
             }
             panelObjetContent.add(component);
         }
-        this.repaint();
+
     }
 
     public void afficherListeDesGroupes() {
@@ -125,6 +124,8 @@ public class NasManagerView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         groupeListView = new javax.swing.JList();
         panelObjetContent = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableContentObjet = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         btn_addGroupe = new javax.swing.JButton();
         btn_addUserToGroupe = new javax.swing.JButton();
@@ -156,15 +157,30 @@ public class NasManagerView extends javax.swing.JFrame {
 
         panelObjetContent.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        tableContentObjet.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tableContentObjet);
+
         javax.swing.GroupLayout panelObjetContentLayout = new javax.swing.GroupLayout(panelObjetContent);
         panelObjetContent.setLayout(panelObjetContentLayout);
         panelObjetContentLayout.setHorizontalGroup(
             panelObjetContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 689, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
         );
         panelObjetContentLayout.setVerticalGroup(
             panelObjetContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGroup(panelObjetContentLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -283,7 +299,12 @@ public class NasManagerView extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_logOutActionPerformed
 
     private void btn_addObjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addObjectActionPerformed
-        new AddObject().setVisible(true);
+        if (groupeListView.getSelectedValue() != null) {
+            new AddObject().setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Veuillez choisir un groupe svp!");
+        }
+
     }//GEN-LAST:event_btn_addObjectActionPerformed
 
     private void btn_addUserToGroupeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addUserToGroupeActionPerformed
@@ -343,7 +364,9 @@ public class NasManagerView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panelObjetContent;
+    private javax.swing.JTable tableContentObjet;
     // End of variables declaration//GEN-END:variables
 
     private void setColor() {
