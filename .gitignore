@@ -1,4 +1,4 @@
-/target
+/target/*
 nbactions.xml
 hs_err_pid6498.log
 target
