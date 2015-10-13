@@ -68,11 +68,11 @@ public class NasManagerView extends javax.swing.JFrame {
             groupe.lireContenu();
         }
         afficherObjetSurPanel(groupe);
-     
+
     }
 
-    private void afficherObjetSurPanel(Groupe groupe){
-           JButton component;
+    private void afficherObjetSurPanel(Groupe groupe) {
+        JButton component;
         panelObjetContent.removeAll();
         panelObjetContent.revalidate();
         panelObjetContent.repaint();
@@ -99,6 +99,7 @@ public class NasManagerView extends javax.swing.JFrame {
         panelObjetContent.revalidate();
 
     }
+
     public void afficherListeDesGroupes() {
         Vector<String> groupes = new Vector<>();
         for (Groupe groupe : membreActif.getGroupesCrees()) {
@@ -302,9 +303,7 @@ public class NasManagerView extends javax.swing.JFrame {
         if (("").equalsIgnoreCase(groupe)) {
             JOptionPane.showMessageDialog(null, "Le nom est vide");
         } else {
-            Groupe groupe1 = membreActif.creerGroupe(udsView.getUniversite().getListeGroupeDisponible().size() + 1, groupe, membreActif, 0);
-           
-            udsView.getUniversite().misAjourGroupes(groupe1);
+            udsView.getUniversite().creerGroupe(groupe, udsView.membreActif);
             afficherListeDesGroupes();
         }
     }//GEN-LAST:event_btn_addGroupeActionPerformed
@@ -335,7 +334,6 @@ public class NasManagerView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_addUserToGroupeActionPerformed
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_label;

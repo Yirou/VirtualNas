@@ -15,64 +15,65 @@ import java.util.List;
  * @author yirou
  */
 public class Universite {
-
+    
     private List<Groupe> listeGroupeDisponible = new ArrayList<>();
     private List<Membre> listeDesMembres = new ArrayList<>();
     private List<Service> listeDesServices = new ArrayList<>();
     private String nom;
-
+    
     public Universite(String nom) {
         this.nom = nom;
     }
-
+    
     public String getNom() {
         return nom;
     }
-
+    
     public void setNom(String nom) {
         this.nom = nom;
     }
-
+    
     public List<Groupe> getListeGroupeDisponible() {
         return listeGroupeDisponible;
     }
-
+    
     public void setListeGroupeDisponible(List<Groupe> listeGroupeDisponible) {
         this.listeGroupeDisponible = listeGroupeDisponible;
     }
-
+    
     public void setListeDesServices(List<Service> listeDesServices) {
         this.listeDesServices = listeDesServices;
     }
-
+    
     public List<Service> getListeDesServices() {
         return listeDesServices;
     }
-
+    
     public List<Membre> getListeDesMembres() {
         return listeDesMembres;
     }
-
+    
     public void setListeDesMembres(List<Membre> listeDesMembres) {
         this.listeDesMembres = listeDesMembres;
     }
-
-    public void creerGroupe(final String name) {
-
+    
+    public void creerGroupe(String groupe, Membre membreActif) {
+        Groupe groupe1 = membreActif.creerGroupe(listeGroupeDisponible.size() + 1, groupe, membreActif, 0);
+        misAjourGroupes(groupe1);
     }
-
+    
     public boolean accederAuGroupe(final int idGroupe) {
         return false;
     }
-
+    
     public void misAjourGroupes(final Groupe groupe) {
         listeGroupeDisponible.add(groupe);
     }
-
-    public void ajouterObjet(final String typeObjet, final String emplacement) {
-
+    
+    public Membre ajouterObjet(final Membre membre) {
+        return verifierSiMembreExiste(membre);
     }
-
+    
     public Membre verifierSiMembreExiste(final String pseudo) {
         for (Membre membre : listeDesMembres) {
             if (membre.getNom().equalsIgnoreCase(pseudo)) {
@@ -81,7 +82,16 @@ public class Universite {
         }
         return null;
     }
-
+    
+    public Membre verifierSiMembreExiste(final Membre membreActif) {
+        for (Membre membre : listeDesMembres) {
+            if (membre.equals(membreActif)) {
+                return membre;
+            }
+        }
+        return null;
+    }
+    
     public Groupe chercherGroupe(final String nom) {
         for (Groupe groupe : listeGroupeDisponible) {
             if ((nom).equalsIgnoreCase(groupe.getNom())) {
@@ -90,4 +100,5 @@ public class Universite {
         }
         return null;
     }
+    
 }
