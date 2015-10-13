@@ -50,8 +50,6 @@ public class UdsView extends javax.swing.JFrame {
         add(botomView, BorderLayout.SOUTH);
         centerView.getPanelPrincipal().addTab(null, panelDemarrage);
         add(centerView, BorderLayout.CENTER);
-//        add(new JButton("Est"), BorderLayout.EAST);
-//        add(new JButton("Ouest"), BorderLayout.WEST);
         centerView.setBackground(Color.WHITE);
 
     }

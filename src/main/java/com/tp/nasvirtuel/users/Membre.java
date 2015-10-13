@@ -6,12 +6,9 @@
 package com.tp.nasvirtuel.users;
 
 import com.tp.nasvirtuel.Groupe;
-import com.tp.nasvirtuel.objets.DatesCreation;
-import com.tp.nasvirtuel.objets.Document;
 import com.tp.nasvirtuel.objets.Objet;
-import com.tp.nasvirtuel.objets.Repertoire;
+import com.tp.nasvirtuel.objets.ObjetFactory;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -70,28 +67,7 @@ public class Membre {
     }
 
     public Objet ajouterObjet(String nomDocument, String typeDocument) {
-        Objet objet = null;
-        switch (typeDocument) {
-            case "Document":
-
-                objet = new Document(nomDocument, new DatesCreation(new Date(), this, null));
-                objet.getDate().setObjetModifier(objet);
-                break;
-            case "Repertoire":
-                objet = new Repertoire(nomDocument, new DatesCreation(new Date(), this, null));
-                objet.getDate().setObjetModifier(objet);
-                break;
-            case "Service":
-                objet = new Document(nomDocument, new DatesCreation(new Date(), this, null));
-                objet.getDate().setObjetModifier(objet);
-                break;
-            case "Autre":
-                objet = new Document(nomDocument, new DatesCreation(new Date(), this, null));
-                objet.getDate().setObjetModifier(objet);
-                break;
-        }
-        return objet;
-
+        return ObjetFactory.createObjet(nomDocument, typeDocument, this);
     }
 
     public boolean accederAuGroupe(Groupe groupe) {
