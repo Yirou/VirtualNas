@@ -62,12 +62,14 @@ public class Membre {
 
     public Groupe creerGroupe(int i, String nomGroupe, Membre membreActif, int i0) {
         Groupe groupe = new Groupe(i, nomGroupe, membreActif, i0);
+        System.out.println("Nouveau groupe crée " + groupe.getNom());
         this.groupesCrees.add(groupe);
         return groupe;
     }
 
     public Objet ajouterObjet(String nomDocument, String typeDocument) {
-        return ObjetFactory.createObjet(nomDocument, typeDocument, this);
+        System.out.println("Nouveau objet crée " + nomDocument);
+        return ObjetFactory.getInstance().createObjet(nomDocument, typeDocument, this);
     }
 
     public boolean accederAuGroupe(Groupe groupe) {

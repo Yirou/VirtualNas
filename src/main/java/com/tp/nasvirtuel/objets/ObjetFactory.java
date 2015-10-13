@@ -14,8 +14,17 @@ import java.util.Date;
  */
 public class ObjetFactory {
 
-    public static Objet createObjet(final String nomDocument, final String typeDocument, Membre membre) {
-        Objet objet ;
+    private static final ObjetFactory instance = new ObjetFactory();
+
+    private ObjetFactory() {
+    }
+
+    public static ObjetFactory getInstance() {
+        return instance;
+    }
+
+    public Objet createObjet(final String nomDocument, final String typeDocument, final Membre membre) {
+        Objet objet;
         switch (typeDocument) {
             case "Document":
                 objet = new Document(nomDocument, new DatesCreation(new Date(), membre, null));

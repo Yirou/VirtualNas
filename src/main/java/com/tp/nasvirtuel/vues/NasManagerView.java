@@ -67,14 +67,17 @@ public class NasManagerView extends javax.swing.JFrame {
         if (membreActif.accederAuGroupe(groupe)) {
             groupe.lireContenu();
         }
+        afficherObjetSurPanel(groupe);
+     
+    }
 
-        JButton component;
+    private void afficherObjetSurPanel(Groupe groupe){
+           JButton component;
         panelObjetContent.removeAll();
         panelObjetContent.revalidate();
         panelObjetContent.repaint();
         for (Objet objet : groupe.getListeObjets()) {
             String classe = objet.getClass().getSimpleName();
-            System.out.println(objet.getNom());
             switch (classe) {
                 case "Document":
                     component = new JButton();
@@ -96,7 +99,6 @@ public class NasManagerView extends javax.swing.JFrame {
         panelObjetContent.revalidate();
 
     }
-
     public void afficherListeDesGroupes() {
         Vector<String> groupes = new Vector<>();
         for (Groupe groupe : membreActif.getGroupesCrees()) {
@@ -301,6 +303,7 @@ public class NasManagerView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Le nom est vide");
         } else {
             Groupe groupe1 = membreActif.creerGroupe(udsView.getUniversite().getListeGroupeDisponible().size() + 1, groupe, membreActif, 0);
+           
             udsView.getUniversite().misAjourGroupes(groupe1);
             afficherListeDesGroupes();
         }
@@ -332,40 +335,7 @@ public class NasManagerView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_addUserToGroupeActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NasManagerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NasManagerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NasManagerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NasManagerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NasManagerView(null, null).setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_label;
