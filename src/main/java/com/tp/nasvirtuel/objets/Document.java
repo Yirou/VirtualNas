@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  */
 public class Document extends Objet{
     public static Icon image=new ImageIcon("src/main/resources/drawable-mdpi/document.png");
-    public Document(String nom, DatesCreation date) {
+    public Document(String nom, DatesModification date) {
         super(nom, date);
     }
 

@@ -28,9 +28,9 @@ import javax.swing.JPanel;
  */
 public class NasManagerView extends javax.swing.JFrame {
 
-    private String[] tableHeader = {"Nom objet"};
+    private final String[] tableHeader = {"Nom objet"};
     private UdsView udsView;
-    private static NasManagerView nasManagerView = new NasManagerView(null, null);
+    private static final NasManagerView nasManagerView = new NasManagerView(null, null);
     private Membre membreActif;
 
     /**
@@ -47,6 +47,7 @@ public class NasManagerView extends javax.swing.JFrame {
         btn_addObject.setIcon(new ImageIcon("src/main/resources/drawable-mdpi/objet.png"));
         back_label.setIcon(new ImageIcon("src/main/resources/drawable-mdpi/back.png"));
         btn_logOut.setIcon(new ImageIcon("src/main/resources/drawable-mdpi/out.png"));
+        btn_add_members.setIcon(new ImageIcon("src/main/resources/drawable-mdpi/add_members.png"));
         this.udsView = udsView;
         this.membreActif = membreActif;
         this.groupeListView.addListSelectionListener(new ListeGroupeViewListener());
@@ -105,7 +106,10 @@ public class NasManagerView extends javax.swing.JFrame {
         for (Groupe groupe : membreActif.getGroupesCrees()) {
             groupes.add(groupe.getNom());
         }
-        groupes.add(membreActif.getGroupeParDefaut().getNom());
+        for (Groupe groupe : membreActif.getGroupesAbonne()) {
+            groupes.add(groupe.getNom());
+        }
+        
         groupeListView.setListData(groupes);
     }
 
@@ -148,6 +152,7 @@ public class NasManagerView extends javax.swing.JFrame {
         btn_addGroupe = new javax.swing.JButton();
         btn_addUserToGroupe = new javax.swing.JButton();
         btn_addObject = new javax.swing.JButton();
+        btn_add_members = new javax.swing.JButton();
         back_label = new javax.swing.JLabel();
         btn_logOut = new javax.swing.JButton();
 
@@ -219,6 +224,13 @@ public class NasManagerView extends javax.swing.JFrame {
             }
         });
 
+        btn_add_members.setToolTipText("Ajouter une liste de membre");
+        btn_add_members.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_add_membersActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -229,6 +241,8 @@ public class NasManagerView extends javax.swing.JFrame {
                 .addComponent(btn_addUserToGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_addObject, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btn_add_members, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -237,6 +251,7 @@ public class NasManagerView extends javax.swing.JFrame {
                 .addComponent(btn_addGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btn_addUserToGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(btn_addObject, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btn_add_members, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         back_label.setIcon(new javax.swing.ImageIcon(getClass().getResource("/drawable-mdpi/back.png"))); // NOI18N
@@ -299,13 +314,8 @@ public class NasManagerView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_addGroupeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addGroupeActionPerformed
-        String groupe = JOptionPane.showInputDialog("Nom du groupe");
-        if (("").equalsIgnoreCase(groupe)) {
-            JOptionPane.showMessageDialog(null, "Le nom est vide");
-        } else {
-            udsView.getUniversite().creerGroupe(groupe, udsView.membreActif);
-            afficherListeDesGroupes();
-        }
+        new AjoutGroupe().setVisible(true);
+
     }//GEN-LAST:event_btn_addGroupeActionPerformed
 
     private void btn_logOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_logOutActionPerformed
@@ -328,11 +338,16 @@ public class NasManagerView extends javax.swing.JFrame {
         Membre membre = udsView.getUniversite().verifierSiMembreExiste(nom);
         if (membre != null) {
             Groupe groupe = udsView.getUniversite().chercherGroupe(groupeListView.getSelectedValue().toString());
-            groupe.getListeDesMembres().add(membre);
+            groupe.ajouterMembre(membre);
+            JOptionPane.showMessageDialog(null, "Membre bien ajouté");
         } else {
             JOptionPane.showMessageDialog(null, "Ce membre n'existe pas");
         }
     }//GEN-LAST:event_btn_addUserToGroupeActionPerformed
+
+    private void btn_add_membersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_add_membersActionPerformed
+        new AjouterMembreGroupe().setVisible(true);
+    }//GEN-LAST:event_btn_add_membersActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -340,6 +355,7 @@ public class NasManagerView extends javax.swing.JFrame {
     private javax.swing.JButton btn_addGroupe;
     private javax.swing.JButton btn_addObject;
     private javax.swing.JButton btn_addUserToGroupe;
+    private javax.swing.JButton btn_add_members;
     private javax.swing.JButton btn_logOut;
     private javax.swing.JList groupeListView;
     private javax.swing.JLabel jLabel1;
@@ -359,6 +375,7 @@ public class NasManagerView extends javax.swing.JFrame {
         btn_addObject.setBackground(UdsView.color_blue);
         btn_addUserToGroupe.setBackground(UdsView.color_blue);
         back_label.setBackground(UdsView.color_blue);
+        btn_add_members.setBackground(UdsView.color_blue);
 
     }
 

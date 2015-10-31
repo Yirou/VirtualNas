@@ -27,19 +27,19 @@ public class ObjetFactory {
         Objet objet;
         switch (typeDocument) {
             case "Document":
-                objet = new Document(nomDocument, new DatesCreation(new Date(), membre, null));
+                objet = new Document(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
                 break;
             case "Repertoire":
-                objet = new Repertoire(nomDocument, new DatesCreation(new Date(), membre, null));
+                objet = new Repertoire(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
                 break;
             case "Service":
-                objet = new Document(nomDocument, new DatesCreation(new Date(), membre, null));
+                objet = new Document(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
                 break;
             default:
-                objet = new Document(nomDocument, new DatesCreation(new Date(), membre, null));
+                objet = new Document(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
                 break;
         }

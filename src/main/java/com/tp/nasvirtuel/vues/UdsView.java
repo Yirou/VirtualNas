@@ -5,7 +5,6 @@
  */
 package com.tp.nasvirtuel.vues;
 
-import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.Universite;
 import com.tp.nasvirtuel.users.Membre;
 import java.awt.BorderLayout;
@@ -23,13 +22,10 @@ public class UdsView extends javax.swing.JFrame {
     BotomView botomView;
     TopView topView;
     Universite universite;
-    Groupe etudiantGroupe;
-    Groupe personnelGroupe;
-    Groupe chercheurGroupe;
     Membre membreActif;
     public static Color color_blue = new Color(0x00AFF0);
     public static Color color_blue_foncee = new Color(0x0C7DAF);
-    public static Color color_blue_ciel=new Color(0x0095CC);
+    public static Color color_blue_ciel = new Color(0x0095CC);
 
     /**
      * Creates new form UdsView
@@ -45,7 +41,9 @@ public class UdsView extends javax.swing.JFrame {
         botomView = new BotomView(this);
         topView = new TopView(this);
         universite = new Universite("Univ Savoie Mont Blanc");
-        genererGroupe();
+        universite.genererGroupe();
+        universite.genererListFiliereEtFormation();
+        universite.genererEtudiantEtChercheur();
         add(topView, BorderLayout.NORTH);
         add(botomView, BorderLayout.SOUTH);
         centerView.getPanelPrincipal().addTab(null, panelDemarrage);
@@ -62,7 +60,6 @@ public class UdsView extends javax.swing.JFrame {
         this.membreActif = membreActif;
     }
 
-    
     public Universite getUniversite() {
         return universite;
     }
@@ -70,31 +67,7 @@ public class UdsView extends javax.swing.JFrame {
     public PanelDemarrage getPanelDemarrage() {
         return panelDemarrage;
     }
-
-    public Groupe getEtudiantGroupe() {
-        return etudiantGroupe;
-    }
-
-    public void setEtudiantGroupe(Groupe etudiantGroupe) {
-        this.etudiantGroupe = etudiantGroupe;
-    }
-
-    public Groupe getPersonnelGroupe() {
-        return personnelGroupe;
-    }
-
-    public void setPersonnelGroupe(Groupe personnelGroupe) {
-        this.personnelGroupe = personnelGroupe;
-    }
-
-    public Groupe getChercheurGroupe() {
-        return chercheurGroupe;
-    }
-
-    public void setChercheurGroupe(Groupe chercheurGroupe) {
-        this.chercheurGroupe = chercheurGroupe;
-    }
-
+ 
     public CenterView getCenterView() {
         return centerView;
     }
@@ -107,15 +80,9 @@ public class UdsView extends javax.swing.JFrame {
         return topView;
     }
 
-    private void genererGroupe() {
-        Membre admin = new Membre("Admin", null);
-        etudiantGroupe = new Groupe(universite.getListeGroupeDisponible().size() + 1, "Groupe Etudiant", admin, 0);
-        universite.getListeGroupeDisponible().add(etudiantGroupe);
-        chercheurGroupe = new Groupe(universite.getListeGroupeDisponible().size() + 1, "Groupe Chercheur", admin, 0);
-        universite.getListeGroupeDisponible().add(chercheurGroupe);
-        personnelGroupe = new Groupe(universite.getListeGroupeDisponible().size() + 1, "Groupe Personnel", admin, 0);
-        universite.getListeGroupeDisponible().add(personnelGroupe);
-    }
+ 
+
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -142,7 +109,6 @@ public class UdsView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

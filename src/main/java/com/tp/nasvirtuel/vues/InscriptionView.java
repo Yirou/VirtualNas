@@ -5,10 +5,9 @@
  */
 package com.tp.nasvirtuel.vues;
 
-import com.tp.nasvirtuel.users.Chercheur;
-import com.tp.nasvirtuel.users.Etudiant;
+import com.tp.nasvirtuel.users.FactoryMembre;
 import com.tp.nasvirtuel.users.Membre;
-import com.tp.nasvirtuel.users.Personnel;
+import com.tp.nasvirtuel.users.TypeMembre;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -17,24 +16,27 @@ import javax.swing.JOptionPane;
  * @author yirou
  */
 public class InscriptionView extends javax.swing.JPanel {
+
     private final UdsView udsView;
 
     /**
      * Creates new form InscriptionView
+     *
      * @param udsView
      */
     public InscriptionView(UdsView udsView) {
         initComponents();
         this.udsView = udsView;
-        
+
         setColor();
     }
 
-     private void setColor() {
-       this.setBackground(UdsView.color_blue);
-       jLabel1.setForeground(Color.WHITE);
-       jLabel2.setForeground(Color.WHITE);
+    private void setColor() {
+        this.setBackground(UdsView.color_blue);
+        jLabel1.setForeground(Color.WHITE);
+        jLabel2.setForeground(Color.WHITE);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +55,7 @@ public class InscriptionView extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         jLabel1.setText("Choix Catégorie");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Etudiant", "Chercheur", "Personnel" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Etudiant", "Chercheur", "Personnel", "Dsi" }));
 
         jLabel2.setFont(new java.awt.Font("Cantarell", 1, 18)); // NOI18N
         jLabel2.setText("Pseudo");
@@ -104,21 +106,34 @@ public class InscriptionView extends javax.swing.JPanel {
         String type = jComboBox1.getSelectedItem().toString();
         String pseudoSaisi = pseudo.getText().toLowerCase();
         if (("").equalsIgnoreCase(pseudoSaisi)) {
-            JOptionPane.showMessageDialog(null, "Le pseudo ne peut être null");
+            JOptionPane.showMessageDialog(null, "Le nom d'utilisateur ne peut être null");
+        } else if (udsView.getUniversite().verifierSiMembreExiste(pseudoSaisi) != null) {
+            JOptionPane.showMessageDialog(null, "Cet utilisateur existe dejà");
         } else {
-            Membre membre=null;
-            switch (type) {
-                case "Etudiant":
-                    membre = new Etudiant(pseudoSaisi,udsView.getEtudiantGroupe());
-                    udsView.getEtudiantGroupe().getListeDesMembres().add(membre);
+            Membre membre;
+            TypeMembre typeMembre = TypeMembre.getTypeMEmbre(type);
+            membre = FactoryMembre.getInstance().creerMembre(typeMembre);
+
+            switch (typeMembre) {
+                case Etudiant:
+                    membre.setNom(pseudoSaisi);
+                    membre.setGroupeParDefaut(udsView.getUniversite().getEtudiantGroupe());
+                    udsView.getUniversite().getEtudiantGroupe().ajouterMembre(membre);
                     break;
-                case "Chercheur":
-                    membre = new Chercheur(pseudoSaisi,udsView.getChercheurGroupe());
-                    udsView.getChercheurGroupe().getListeDesMembres().add(membre);
+                case Chercheur:
+                    membre.setNom(pseudoSaisi);
+                    membre.setGroupeParDefaut(udsView.getUniversite().getChercheurGroupe());
+                    udsView.getUniversite().getChercheurGroupe().ajouterMembre(membre);
                     break;
-                case "Personnel":
-                    membre = new Personnel(pseudoSaisi,udsView.getPersonnelGroupe());
-                    udsView.getPersonnelGroupe().getListeDesMembres().add(membre);
+                case Personnel:
+                    membre.setNom(pseudoSaisi);
+                    membre.setGroupeParDefaut(udsView.getUniversite().getPersonnelGroupe());
+                    udsView.getUniversite().getPersonnelGroupe().ajouterMembre(membre);
+                    break;
+                case Dsi:
+                    membre.setNom(pseudoSaisi);
+                    membre.setGroupeParDefaut(udsView.getUniversite().getDsiGroupe());
+                    udsView.getUniversite().getDsiGroupe().ajouterMembre(membre);
                     break;
             }
             udsView.getUniversite().getListeDesMembres().add(membre);
@@ -128,7 +143,7 @@ public class InscriptionView extends javax.swing.JPanel {
             udsView.dispose();
             NasManagerView.getInstance().afficherListeDesGroupes();
             NasManagerView.getInstance().setVisible(true);
-            
+
         }
 
 
@@ -143,5 +158,4 @@ public class InscriptionView extends javax.swing.JPanel {
     private javax.swing.JTextField pseudo;
     // End of variables declaration//GEN-END:variables
 
-   
 }

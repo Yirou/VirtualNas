@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author yirou
  */
-public class Groupe {
+public abstract class Groupe {
 
     protected int idGroupe;
     protected String nom;
@@ -47,6 +47,15 @@ public class Groupe {
 
     public int getNombreAcces() {
         return nombreAcces;
+    }
+
+    public void ajouterMembre(Membre membre) {
+        System.out.println(membre.getGroupesAbonne().size());
+        listeDesMembres.add(membre);
+        
+        membre.getGroupesAbonne().add(this);
+        
+        System.out.println(membre.getNom()+" ajouté "+nom+" "+membre.getGroupesAbonne().size());
     }
 
     public void setAuteur(Membre auteur) {

@@ -14,13 +14,13 @@ import java.util.Set;
  *
  * @author yirou
  */
-public class DatesCreation {
+public class DatesModification {
     private Date dateCreation;
     private Membre membreModifier;
     private Objet objetModifier;
-    private Set<DatesCreation>datesModification=new HashSet<>();
+    private Set<DatesModification>datesModification=new HashSet<>();
 
-    public DatesCreation(Date dateCreation, Membre membreModifier, Objet objetModifier) {
+    public DatesModification(Date dateCreation, Membre membreModifier, Objet objetModifier) {
         this.dateCreation = dateCreation;
         this.membreModifier = membreModifier;
         this.objetModifier = objetModifier;
@@ -31,7 +31,7 @@ public class DatesCreation {
     }
     
 
-    public Set<DatesCreation> getDatesModification() {
+    public Set<DatesModification> getDatesModification() {
         return datesModification;
     }
 
@@ -47,7 +47,7 @@ public class DatesCreation {
         this.dateCreation = dateCreation;
     }
 
-    public void setDatesModification(Set<DatesCreation> datesModification) {
+    public void setDatesModification(Set<DatesModification> datesModification) {
         this.datesModification = datesModification;
     }
 

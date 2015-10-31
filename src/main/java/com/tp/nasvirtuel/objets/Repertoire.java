@@ -19,7 +19,7 @@ public class Repertoire extends Objet {
     public static Icon image = new ImageIcon("src/main/resources/drawable-mdpi/folder.png");
     private List<Objet> listeObjets = new ArrayList<>();
 
-    public Repertoire(String nom, DatesCreation date) {
+    public Repertoire(String nom, DatesModification date) {
         super(nom, date);
     }
 

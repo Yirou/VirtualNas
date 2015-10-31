@@ -15,21 +15,21 @@ import javax.swing.ImageIcon;
 public abstract class Objet {
 
     protected String nom;
-    protected DatesCreation date;
+    protected DatesModification date;
     public static Icon image = new ImageIcon("src/main/resources/drawable-mdpi/objet.png");
 
-    public Objet(String nom, DatesCreation date) {
+    public Objet(String nom, DatesModification date) {
         this.nom = nom;
         this.date = date;
     }
 
     public abstract void afficherObjet();
 
-    public DatesCreation getDate() {
+    public DatesModification getDate() {
         return date;
     }
 
-    public void setDate(DatesCreation date) {
+    public void setDate(DatesModification date) {
         this.date = date;
     }
 
