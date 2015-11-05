@@ -5,10 +5,16 @@
  */
 package com.tp.nasvirtuel.vues;
 
+import com.tp.nasvirtuel.Groupe;
+import com.tp.nasvirtuel.Universite;
+import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Filiere;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.services.Service;
+import com.tp.nasvirtuel.users.Membre;
+import com.tp.nasvirtuel.users.PersonnelDSI;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -139,10 +145,21 @@ public class AjouterMembreGroupe extends javax.swing.JFrame {
     }//GEN-LAST:event_comboFiliereActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Universite universite = nasManagerView.getUdsView().getUniversite();
+        Formation formation = universite.deployerMembres(comboFiliere.getSelectedItem().toString(), formationCombo.getSelectedItem().toString());
+        Groupe groupe = universite.chercherGroupe(nasManagerView.getGroupeListView().getSelectedValue().toString());
+        Membre membre = nasManagerView.getMembreActif();
+        PersonnelDSI personnelDSI = (PersonnelDSI) membre;
+        if (formation != null) {
+            personnelDSI.deployerMembres(formation, groupe);
+            groupe.creerTrombinoscope(personnelDSI, "Trombinoscope");
+            groupe.initialiserDossier();
+            JOptionPane.showMessageDialog(null, "Membres déployés avec succès");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Erreur interne");
+        }
 
-        Filiere filiere = nasManagerView.getUdsView().getUniversite().chercherFiliere(comboFiliere.getSelectedItem().toString());
-        Formation formation = filiere.chercherFormation(formationCombo.getSelectedItem().toString());
-        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

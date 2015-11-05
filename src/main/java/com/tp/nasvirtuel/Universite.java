@@ -8,6 +8,8 @@ package com.tp.nasvirtuel;
 import com.tp.nasvirtuel.services.Filiere;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.services.Service;
+import com.tp.nasvirtuel.users.Chercheur;
+import com.tp.nasvirtuel.users.Etudiant;
 import com.tp.nasvirtuel.users.FactoryMembre;
 import com.tp.nasvirtuel.users.Membre;
 import com.tp.nasvirtuel.users.TypeMembre;
@@ -167,6 +169,7 @@ public class Universite {
 
     public void genererEtudiantEtChercheur() {
         Filiere filiere = chercherFiliere("informatique");
+        Formation formation=filiere.chercherFormation("STIC");
         FactoryMembre factoryMembre = FactoryMembre.getInstance();
         Membre membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
         membre.setGroupeParDefaut(etudiantGroupe);
@@ -174,6 +177,7 @@ public class Universite {
         listeDesMembres.add(membre);
         etudiantGroupe.ajouterMembre(membre);
         filiere.getListeMembre().add(membre);
+        formation.getListeEtudiant().add((Etudiant)membre);
 
         membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
         membre.setGroupeParDefaut(etudiantGroupe);
@@ -181,6 +185,7 @@ public class Universite {
         listeDesMembres.add(membre);
         etudiantGroupe.ajouterMembre(membre);
         filiere.getListeMembre().add(membre);
+        formation.getListeEtudiant().add((Etudiant)membre);
 
         filiere = chercherFiliere("Math-Physique");
         membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
@@ -201,7 +206,8 @@ public class Universite {
         membre.setNom("Christophe");
         listeDesMembres.add(membre);
         chercheurGroupe.ajouterMembre(membre);
-
+        formation.getListeEnseignant().add((Chercheur)membre);
+        
         membre = factoryMembre.creerMembre(TypeMembre.Chercheur);
         membre.setGroupeParDefaut(chercheurGroupe);
         membre.setNom("Christine");
@@ -254,6 +260,11 @@ public class Universite {
 
     public void setDsiGroupe(Groupe dsiGroupe) {
         this.dsiGroupe = dsiGroupe;
+    }
+
+    public Formation deployerMembres(String nomFilere, String nomFormation) {
+       Filiere filiere=chercherFiliere(nomFilere);
+       return filiere.chercherFormation(nomFormation);
     }
 
   

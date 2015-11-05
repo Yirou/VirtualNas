@@ -10,6 +10,8 @@ import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.TypeGroupe;
 import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.objets.ObjetFactory;
+import com.tp.nasvirtuel.objets.TypeObjet;
+import com.tp.nasvirtuel.services.Formation;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,13 +94,15 @@ public abstract class Membre {
         return groupe;
     }
 
-    public Objet ajouterObjet(String nomDocument, String typeDocument) {
+    public Objet ajouterObjet(String nomDocument, TypeObjet typeObjet) {
         System.out.println("Nouveau objet crée " + nomDocument);
-        return ObjetFactory.getInstance().createObjet(nomDocument, typeDocument, this);
+        return ObjetFactory.getInstance().createObjet(nomDocument,typeObjet , this);
     }
 
     public boolean accederAuGroupe(Groupe groupe) {
         return groupesAbonne.contains(groupe) || groupesCrees.contains(groupe) || groupeParDefaut.equals(groupe);
     }
+
+    
 
 }

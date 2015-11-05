@@ -187,6 +187,8 @@
                       <Component id="btn_addObject" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btn_add_members" min="-2" pref="51" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="btn_add_relation" min="-2" pref="51" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -199,6 +201,7 @@
                       <Component id="btn_addObject" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
                   <Component id="btn_add_members" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="btn_add_relation" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -233,6 +236,14 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_add_membersActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="btn_add_relation">
+              <Properties>
+                <Property name="toolTipText" type="java.lang.String" value="Ajouter une liste de membre"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_add_relationActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

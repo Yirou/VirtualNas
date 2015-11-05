@@ -6,7 +6,12 @@
 package com.tp.nasvirtuel;
 
 import com.tp.nasvirtuel.objets.Objet;
+import com.tp.nasvirtuel.objets.TypeObjet;
+import com.tp.nasvirtuel.services.Formation;
+import com.tp.nasvirtuel.users.Chercheur;
+import com.tp.nasvirtuel.users.Etudiant;
 import com.tp.nasvirtuel.users.Membre;
+import com.tp.nasvirtuel.users.PersonnelDSI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,12 +55,10 @@ public abstract class Groupe {
     }
 
     public void ajouterMembre(Membre membre) {
-        System.out.println(membre.getGroupesAbonne().size());
         listeDesMembres.add(membre);
-        
         membre.getGroupesAbonne().add(this);
-        
-        System.out.println(membre.getNom()+" ajouté "+nom+" "+membre.getGroupesAbonne().size());
+
+        System.out.println(membre.getNom() + " ajouté ");
     }
 
     public void setAuteur(Membre auteur) {
@@ -104,5 +107,38 @@ public abstract class Groupe {
 
     public void ajouterObjet(Objet objet) {
         listeObjets.add(objet);
+    }
+
+    public void deployerMembres(Formation formation) {
+        for (Etudiant etudiant : formation.getListeEtudiant()) {
+            ajouterMembre(etudiant);
+            System.out.println("etudiant deployé " + etudiant.getNom());
+        }
+        for (Chercheur chercheur : formation.getListeEnseignant()) {
+            ajouterMembre(chercheur);
+            System.out.println("chercheur deployé " + chercheur.getNom());
+        }
+    }
+
+    public Objet chercherObjet(String nomObjet) {
+        for (Objet objet : listeObjets) {
+            if (objet.getNom().equalsIgnoreCase(nomObjet)) {
+                return objet;
+            }
+        }
+        return null;
+    }
+
+    public void creerTrombinoscope(PersonnelDSI dsi, String nomObjet) {
+        dsi.ajouterObjet(nomObjet, TypeObjet.Objet);
+    }
+
+    public void initialiserDossier() {
+        System.out.println("Creation des dossiers ");
+    }
+
+    public void ajouterRelation(Objet ob1, Objet ob2, String relation) {
+        ob1.ajouterObjetEnRelationAvec(ob2,relation);
+        ob2.ajouterObjetEnRelationAvec(ob1,relation);
     }
 }

@@ -7,6 +7,8 @@ package com.tp.nasvirtuel.vues;
 
 import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.objets.Objet;
+import com.tp.nasvirtuel.objets.Repertoire;
+import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.users.Membre;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,7 +49,7 @@ public class AddObject extends javax.swing.JFrame {
 
         jLabel1.setText("Nom Objet");
 
-        jLabel2.setText("Emplacement");
+        jLabel2.setText("Type objet");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Document", "Repertoire", "Service", "Autre" }));
 
@@ -107,7 +109,8 @@ public class AddObject extends javax.swing.JFrame {
         Object groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue();
         if (groupe != null) {
             Membre membre = udsView.getUniversite().ajouterObjet(udsView.membreActif);
-            objet = membre.ajouterObjet(nomDocument, typeDocument);
+            TypeObjet typeObjet = TypeObjet.getTypeObjet(typeDocument);
+            objet = membre.ajouterObjet(nomDocument, typeObjet);
             String nomGroupe = groupe.toString();
             Groupe grp = udsView.getUniversite().chercherGroupe(nomGroupe);
             grp.ajouterObjet(objet);

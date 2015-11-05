@@ -5,6 +5,8 @@
  */
 package com.tp.nasvirtuel.objets;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -17,6 +19,7 @@ public abstract class Objet {
     protected String nom;
     protected DatesModification date;
     public static Icon image = new ImageIcon("src/main/resources/drawable-mdpi/objet.png");
+    private List<Objet> listeObjetEnRelation = new ArrayList<>();
 
     public Objet(String nom, DatesModification date) {
         this.nom = nom;
@@ -29,6 +32,14 @@ public abstract class Objet {
         return date;
     }
 
+    public void setListeObjetEnRelation(List<Objet> listeObjetEnRelation) {
+        this.listeObjetEnRelation = listeObjetEnRelation;
+    }
+
+    public List<Objet> getListeObjetEnRelation() {
+        return listeObjetEnRelation;
+    }
+
     public void setDate(DatesModification date) {
         this.date = date;
     }
@@ -39,6 +50,16 @@ public abstract class Objet {
 
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    public void ajouterObjetEnRelationAvec(Objet o, String relation) {
+        this.getListeObjetEnRelation().add(o);
+    }
+
+    public void afficherObjetEnRelationAvec() {
+        for (Objet objet : listeObjetEnRelation) {
+            System.out.println(this.getNom() + " en relation avec " + objet.getNom());
+        }
     }
 
 }
