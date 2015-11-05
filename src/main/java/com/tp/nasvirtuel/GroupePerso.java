@@ -10,5 +10,9 @@ package com.tp.nasvirtuel;
  * @author Yirou
  */
 public class GroupePerso extends Groupe{
+
+    @Override
+    public void initialiserDossier() {
+    }
     
 }

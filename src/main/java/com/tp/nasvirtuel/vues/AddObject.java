@@ -108,9 +108,9 @@ public class AddObject extends javax.swing.JFrame {
         UdsView udsView = NasManagerView.getInstance().getUdsView();
         Object groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue();
         if (groupe != null) {
-            Membre membre = udsView.getUniversite().ajouterObjet(udsView.membreActif);
+           
             TypeObjet typeObjet = TypeObjet.getTypeObjet(typeDocument);
-            objet = membre.ajouterObjet(nomDocument, typeObjet);
+            objet = udsView.getUniversite().ajouterObjet(nomDocument, typeObjet,udsView.membreActif);
             String nomGroupe = groupe.toString();
             Groupe grp = udsView.getUniversite().chercherGroupe(nomGroupe);
             grp.ajouterObjet(objet);

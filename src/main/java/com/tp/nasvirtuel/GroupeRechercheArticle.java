@@ -23,5 +23,9 @@ public class GroupeRechercheArticle extends GroupeRecherche{
     @Override
     public void genererFichier() {
     }
+
+    @Override
+    public void initialiserDossier() {
+    }
     
 }

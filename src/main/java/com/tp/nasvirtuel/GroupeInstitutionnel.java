@@ -20,6 +20,9 @@ public abstract class GroupeInstitutionnel extends Groupe {
     public GroupeInstitutionnel() {
     }
 
-    
+    @Override
+    public void initialiserDossier() {
+    }
+
     public abstract void genererFichier();
 }

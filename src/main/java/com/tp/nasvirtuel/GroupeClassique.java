@@ -5,6 +5,8 @@
  */
 package com.tp.nasvirtuel;
 
+import com.tp.nasvirtuel.objets.FactoryObjet;
+import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.users.Membre;
 import java.util.Arrays;
 import java.util.List;
@@ -36,5 +38,14 @@ public class GroupeClassique extends GroupeInstitutionnel {
     @Override
     public void genererFichier() {
 
+    }
+
+    @Override
+    public void initialiserDossier() {
+        FactoryObjet factoryObjet = FactoryObjet.getInstance();
+        for (String document : listeDefaultFolder) {
+            System.out.println("ajoute");
+            listeObjets.add(factoryObjet.createObjet(document, TypeObjet.Repertoire, null));
+        }
     }
 }

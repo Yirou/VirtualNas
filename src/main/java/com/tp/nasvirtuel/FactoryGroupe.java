@@ -5,6 +5,8 @@
  */
 package com.tp.nasvirtuel;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Yirou
@@ -22,18 +24,23 @@ public class FactoryGroupe {
         switch (type) {
             case GroupeClassique:
                 groupe = new GroupeClassique();
+                groupe.getTypeRelationPossibleDuGroupe().add(TypeRelationDuGroupe.Autre);
                 break;
 
             case GroupePerso:
                 groupe = new GroupePerso();
+                groupe.getTypeRelationPossibleDuGroupe().add(TypeRelationDuGroupe.Autre);
+                groupe.getTypeRelationPossibleDuGroupe().add(TypeRelationDuGroupe.Corriger);
                 break;
 
             case GroupeRechercheArticle:
                 groupe = new GroupeRechercheArticle();
+                groupe.setTypeRelationPossibleDuGroupe(Arrays.asList(TypeRelationDuGroupe.values()));
                 break;
 
             case GroupeRechercheProjet:
                 groupe = new GroupeRechercheProjet();
+                groupe.setTypeRelationPossibleDuGroupe(Arrays.asList(TypeRelationDuGroupe.values()));
                 break;
         }
         return groupe;

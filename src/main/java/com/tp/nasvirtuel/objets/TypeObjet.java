@@ -11,7 +11,7 @@ package com.tp.nasvirtuel.objets;
  */
 public enum TypeObjet {
 
-    Document, Repertoire, Service, Objet;
+    Document, Repertoire, Service, Objet,Trombinoscope;
 
     public static TypeObjet getTypeObjet(String type) {
         for (TypeObjet typeObjet : TypeObjet.values()) {

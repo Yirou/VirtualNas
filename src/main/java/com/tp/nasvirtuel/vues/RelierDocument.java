@@ -6,6 +6,7 @@
 package com.tp.nasvirtuel.vues;
 
 import com.tp.nasvirtuel.Groupe;
+import com.tp.nasvirtuel.TypeRelationDuGroupe;
 import com.tp.nasvirtuel.objets.Objet;
 import java.util.List;
 import javax.swing.JFrame;
@@ -27,11 +28,15 @@ public class RelierDocument extends javax.swing.JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
-
+    
     private void initialiserObjet() {
+        
         String str_groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue().toString();
         Groupe groupe = NasManagerView.getInstance().getUdsView().getUniversite().chercherGroupe(str_groupe);
-//        typeRelation.removeAllItems();
+        typeRelation.removeAllItems();
+        for (TypeRelationDuGroupe typeRelationDuGroupe : groupe.getTypeRelationPossibleDuGroupe()) {
+            typeRelation.addItem(typeRelationDuGroupe);
+        }
         objet1.removeAllItems();
         objet2.removeAllItems();
         if (groupe != null) {
@@ -40,7 +45,7 @@ public class RelierDocument extends javax.swing.JFrame {
                 objet1.addItem(objet.getNom());
                 objet2.addItem(objet.getNom());
             }
-
+            
         } else {
             JOptionPane.showMessageDialog(null, "Impossible d'ajouter au groupe", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
@@ -128,12 +133,14 @@ public class RelierDocument extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
+        
         String str_groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue().toString();
         String str_objet1 = objet1.getSelectedItem().toString();
         String str_objet2 = objet2.getSelectedItem().toString();
         String relation = typeRelation.getSelectedItem().toString();
         NasManagerView.getInstance().getUdsView().getUniversite().relierDocument(str_groupe, str_objet1, str_objet2, relation);
+        JOptionPane.showMessageDialog(null,"Objet mis en relation avec succès");
+        this.dispose();
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

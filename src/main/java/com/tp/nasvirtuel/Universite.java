@@ -6,6 +6,7 @@
 package com.tp.nasvirtuel;
 
 import com.tp.nasvirtuel.objets.Objet;
+import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Filiere;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.services.Service;
@@ -97,8 +98,8 @@ public class Universite {
         listeGroupeDisponible.add(groupe);
     }
 
-    public Membre ajouterObjet(final Membre membre) {
-        return verifierSiMembreExiste(membre);
+    public Objet ajouterObjet(final String nomDocument, final TypeObjet typeObjet, final Membre membre) {
+        return membre.ajouterObjet(nomDocument, typeObjet);
     }
 
     public Membre verifierSiMembreExiste(final String pseudo) {
@@ -155,7 +156,7 @@ public class Universite {
         etudiantGroupe.setAuteur(admin);
         this.getListeGroupeDisponible().add(etudiantGroupe);
 
-        chercheurGroupe = factoryGroupe.creerGroupe(TypeGroupe.GroupeClassique);
+        chercheurGroupe = factoryGroupe.creerGroupe(TypeGroupe.GroupeRechercheArticle);
         chercheurGroupe.setIdGroupe(this.getListeGroupeDisponible().size() + 1);
         chercheurGroupe.setNom("Groupe chercheur");
         chercheurGroupe.setAuteur(admin);

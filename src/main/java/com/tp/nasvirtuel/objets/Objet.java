@@ -5,6 +5,7 @@
  */
 package com.tp.nasvirtuel.objets;
 
+import com.tp.nasvirtuel.TypeRelationDuGroupe;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.Icon;
@@ -19,7 +20,7 @@ public abstract class Objet {
     protected String nom;
     protected DatesModification date;
     public static Icon image = new ImageIcon("src/main/resources/drawable-mdpi/objet.png");
-    private List<Objet> listeObjetEnRelation = new ArrayList<>();
+    private List<Relation> listeObjetEnRelation = new ArrayList<>();
 
     public Objet(String nom, DatesModification date) {
         this.nom = nom;
@@ -32,12 +33,12 @@ public abstract class Objet {
         return date;
     }
 
-    public void setListeObjetEnRelation(List<Objet> listeObjetEnRelation) {
-        this.listeObjetEnRelation = listeObjetEnRelation;
+    public List<Relation> getListeObjetEnRelation() {
+        return listeObjetEnRelation;
     }
 
-    public List<Objet> getListeObjetEnRelation() {
-        return listeObjetEnRelation;
+    public void setListeObjetEnRelation(List<Relation> listeObjetEnRelation) {
+        this.listeObjetEnRelation = listeObjetEnRelation;
     }
 
     public void setDate(DatesModification date) {
@@ -53,12 +54,14 @@ public abstract class Objet {
     }
 
     public void ajouterObjetEnRelationAvec(Objet o, String relation) {
-        this.getListeObjetEnRelation().add(o);
+        TypeRelationDuGroupe typeRelationDuGroupe = TypeRelationDuGroupe.getTypeRelation(relation);
+        this.getListeObjetEnRelation().add(new Relation(o, typeRelationDuGroupe));
+        afficherObjetEnRelationAvec();
     }
 
     public void afficherObjetEnRelationAvec() {
-        for (Objet objet : listeObjetEnRelation) {
-            System.out.println(this.getNom() + " en relation avec " + objet.getNom());
+        for (Relation relation : listeObjetEnRelation) {
+            System.out.println(this.getNom() + " est en relation de "+relation.getRelation()+" avec " + relation.getObjet().getNom());
         }
     }
 

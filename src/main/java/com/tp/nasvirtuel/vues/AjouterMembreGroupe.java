@@ -6,7 +6,9 @@
 package com.tp.nasvirtuel.vues;
 
 import com.tp.nasvirtuel.Groupe;
+import com.tp.nasvirtuel.GroupeClassique;
 import com.tp.nasvirtuel.Universite;
+import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Filiere;
 import com.tp.nasvirtuel.services.Formation;
@@ -152,8 +154,11 @@ public class AjouterMembreGroupe extends javax.swing.JFrame {
         PersonnelDSI personnelDSI = (PersonnelDSI) membre;
         if (formation != null) {
             personnelDSI.deployerMembres(formation, groupe);
-            groupe.creerTrombinoscope(personnelDSI, "Trombinoscope");
+            Objet objet = universite.ajouterObjet("Trombinoscope", TypeObjet.Objet, personnelDSI);
+            groupe.ajouterObjet(objet);
             groupe.initialiserDossier();
+            nasManagerView.accederAuGroupe(groupe);
+            System.out.println(groupe.getListeObjets().size());
             JOptionPane.showMessageDialog(null, "Membres déployés avec succès");
             this.dispose();
         } else {

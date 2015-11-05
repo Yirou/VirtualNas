@@ -5,15 +5,12 @@
  */
 package com.tp.nasvirtuel;
 
-import com.tp.nasvirtuel.objets.Document;
 import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.objets.Repertoire;
-import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.users.Chercheur;
 import com.tp.nasvirtuel.users.Etudiant;
 import com.tp.nasvirtuel.users.Membre;
-import com.tp.nasvirtuel.users.PersonnelDSI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +26,7 @@ public abstract class Groupe {
     protected int nombreAcces;
     protected List<Objet> listeObjets = new ArrayList<>();
     protected List<Membre> listeDesMembres = new ArrayList<>();
-      
+    protected List<TypeRelationDuGroupe> typeRelationPossibleDuGroupe = new ArrayList<TypeRelationDuGroupe>();
 
     public Groupe() {
     }
@@ -39,6 +36,14 @@ public abstract class Groupe {
         this.nom = nom;
         this.auteur = auteur;
         this.nombreAcces = nombreAcces;
+    }
+
+    public void setTypeRelationPossibleDuGroupe(List<TypeRelationDuGroupe> typeRelationPossibleDuGroupe) {
+        this.typeRelationPossibleDuGroupe = typeRelationPossibleDuGroupe;
+    }
+
+    public List<TypeRelationDuGroupe> getTypeRelationPossibleDuGroupe() {
+        return typeRelationPossibleDuGroupe;
     }
 
     public void setNom(String nom) {
@@ -132,13 +137,7 @@ public abstract class Groupe {
         return null;
     }
 
-    public void creerTrombinoscope(PersonnelDSI dsi, String nomObjet) {
-        dsi.ajouterObjet(nomObjet, TypeObjet.Objet);
-    }
-
-    public void initialiserDossier() {
-        System.out.println("Creation des dossiers ");
-    }
+    public abstract void initialiserDossier();
 
     public void cloner(Groupe grACloner) {
         if (grACloner != null) {
@@ -152,7 +151,7 @@ public abstract class Groupe {
     }
 
     void ajouterRelation(String str_objet1, String str_objet2, String relation) {
-        Objet ob1 =chercherObjet(str_objet1);
+        Objet ob1 = chercherObjet(str_objet1);
         Objet ob2 = chercherObjet(str_objet2);
         ob1.ajouterObjetEnRelationAvec(ob2, relation);
         ob2.ajouterObjetEnRelationAvec(ob1, relation);

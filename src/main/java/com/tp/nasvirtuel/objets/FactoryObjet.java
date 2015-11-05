@@ -38,6 +38,11 @@ public class FactoryObjet {
                 objet = new Document(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
                 break;
+
+            case Trombinoscope:
+                objet = new Trombinoscope(nomDocument, new DatesModification(new Date(), membre, null));
+                objet.getDate().setObjetModifier(objet);
+                break;
             default:
                 objet = new Document(nomDocument, new DatesModification(new Date(), membre, null));
                 objet.getDate().setObjetModifier(objet);
