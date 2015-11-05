@@ -24,6 +24,7 @@ public class RelierDocument extends javax.swing.JFrame {
         initComponents();
         initialiserObjet();
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
@@ -127,14 +128,13 @@ public class RelierDocument extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
         String str_groupe = NasManagerView.getInstance().getGroupeListView().getSelectedValue().toString();
-        Groupe groupe = NasManagerView.getInstance().getUdsView().getUniversite().chercherGroupe(str_groupe);
         String str_objet1 = objet1.getSelectedItem().toString();
         String str_objet2 = objet2.getSelectedItem().toString();
         String relation = typeRelation.getSelectedItem().toString();
-        Objet ob1 = groupe.chercherObjet(str_objet1);
-        Objet ob2 = groupe.chercherObjet(str_objet2);
-        groupe.ajouterRelation(ob1, ob2, relation);
+        NasManagerView.getInstance().getUdsView().getUniversite().relierDocument(str_groupe, str_objet1, str_objet2, relation);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

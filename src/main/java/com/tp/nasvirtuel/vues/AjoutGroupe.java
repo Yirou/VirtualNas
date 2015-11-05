@@ -5,7 +5,9 @@
  */
 package com.tp.nasvirtuel.vues;
 
+import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.TypeGroupe;
+import com.tp.nasvirtuel.users.Membre;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,9 +26,20 @@ public class AjoutGroupe extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         genererTypeGroupeAuthoriseACreer();
+        genererGroupeClonable();
     }
 
-    public final void genererTypeGroupeAuthoriseACreer() {
+    private void genererGroupeClonable() {
+        NasManagerView nasManagerView = NasManagerView.getInstance();
+        Membre membre = nasManagerView.getMembreActif();
+        box_groupe_clone.removeAllItems();
+        box_groupe_clone.addItem("--");
+        for (Groupe groupe : membre.getGroupesCrees()) {
+            box_groupe_clone.addItem(groupe.getNom());
+        }
+    }
+
+    private final void genererTypeGroupeAuthoriseACreer() {
         typeGroupe.removeAllItems();
         for (TypeGroupe type : NasManagerView.getInstance().getMembreActif().getListeGroupeAuthoriseACreer()) {
             typeGroupe.addItem(type);
@@ -48,6 +61,8 @@ public class AjoutGroupe extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         nomGroupe = new javax.swing.JTextField();
         typeGroupe = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        box_groupe_clone = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,6 +77,8 @@ public class AjoutGroupe extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Cloner ce groupe");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -73,12 +90,14 @@ public class AjoutGroupe extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
                         .addGap(77, 77, 77)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(nomGroupe)
-                            .addComponent(typeGroupe, 0, 330, Short.MAX_VALUE))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                            .addComponent(typeGroupe, 0, 330, Short.MAX_VALUE)
+                            .addComponent(box_groupe_clone, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -87,11 +106,15 @@ public class AjoutGroupe extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(nomGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(box_groupe_clone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(typeGroupe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
                 .addComponent(jButton1)
                 .addGap(55, 55, 55))
         );
@@ -113,11 +136,12 @@ public class AjoutGroupe extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String groupe = nomGroupe.getText();
         String type = typeGroupe.getSelectedItem().toString();
+        String groupeACloner=box_groupe_clone.getSelectedItem().toString();
         if (("").equalsIgnoreCase(groupe)) {
             JOptionPane.showMessageDialog(null, "Le nom est vide");
         } else {
             UdsView udsView = NasManagerView.getInstance().getUdsView();
-            udsView.getUniversite().creerGroupe(groupe, udsView.membreActif, type);
+            udsView.getUniversite().creerGroupe(groupe, udsView.membreActif, type,groupeACloner);
             NasManagerView.getInstance().afficherListeDesGroupes();
             this.dispose();
         }
@@ -125,9 +149,11 @@ public class AjoutGroupe extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox box_groupe_clone;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nomGroupe;
     private javax.swing.JComboBox typeGroupe;

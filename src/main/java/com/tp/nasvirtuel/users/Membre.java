@@ -9,7 +9,7 @@ import com.tp.nasvirtuel.FactoryGroupe;
 import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.TypeGroupe;
 import com.tp.nasvirtuel.objets.Objet;
-import com.tp.nasvirtuel.objets.ObjetFactory;
+import com.tp.nasvirtuel.objets.FactoryObjet;
 import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Formation;
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public abstract class Membre {
     protected List<TypeGroupe> listeGroupeAuthoriseACreer = new ArrayList<>();
     protected Groupe groupeParDefaut;
     private final FactoryGroupe factoryGroupe = FactoryGroupe.getInstance();
+    private final FactoryObjet factoryObjet=FactoryObjet.getInstance();
 
     public Membre(String nom, Groupe groupeParDefaut) {
         this.nom = nom;
@@ -96,11 +97,16 @@ public abstract class Membre {
 
     public Objet ajouterObjet(String nomDocument, TypeObjet typeObjet) {
         System.out.println("Nouveau objet crée " + nomDocument);
-        return ObjetFactory.getInstance().createObjet(nomDocument,typeObjet , this);
+        return factoryObjet.createObjet(nomDocument,typeObjet , this);
     }
 
     public boolean accederAuGroupe(Groupe groupe) {
         return groupesAbonne.contains(groupe) || groupesCrees.contains(groupe) || groupeParDefaut.equals(groupe);
+    }
+
+   
+    public void clonerGroupe(Groupe grACloner, Groupe groupe) {
+        groupe.cloner(grACloner);
     }
 
     

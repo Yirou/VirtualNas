@@ -12,14 +12,14 @@ import java.util.Date;
  *
  * @author yirou
  */
-public class ObjetFactory {
+public class FactoryObjet {
 
-    private static final ObjetFactory instance = new ObjetFactory();
+    private static final FactoryObjet instance = new FactoryObjet();
 
-    private ObjetFactory() {
+    private FactoryObjet() {
     }
 
-    public static ObjetFactory getInstance() {
+    public static FactoryObjet getInstance() {
         return instance;
     }
 

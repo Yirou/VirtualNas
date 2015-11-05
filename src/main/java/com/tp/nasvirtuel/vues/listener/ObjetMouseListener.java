@@ -9,7 +9,6 @@ import com.tp.nasvirtuel.Groupe;
 import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.vues.NasManagerView;
 import com.tp.nasvirtuel.vues.RelierDocument;
-import com.tp.nasvirtuel.vues.UdsPanel;
 import com.tp.nasvirtuel.vues.UdsView;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;

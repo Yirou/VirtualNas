@@ -5,7 +5,9 @@
  */
 package com.tp.nasvirtuel;
 
+import com.tp.nasvirtuel.objets.Document;
 import com.tp.nasvirtuel.objets.Objet;
+import com.tp.nasvirtuel.objets.Repertoire;
 import com.tp.nasvirtuel.objets.TypeObjet;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.users.Chercheur;
@@ -27,6 +29,7 @@ public abstract class Groupe {
     protected int nombreAcces;
     protected List<Objet> listeObjets = new ArrayList<>();
     protected List<Membre> listeDesMembres = new ArrayList<>();
+      
 
     public Groupe() {
     }
@@ -137,8 +140,21 @@ public abstract class Groupe {
         System.out.println("Creation des dossiers ");
     }
 
-    public void ajouterRelation(Objet ob1, Objet ob2, String relation) {
-        ob1.ajouterObjetEnRelationAvec(ob2,relation);
-        ob2.ajouterObjetEnRelationAvec(ob1,relation);
+    public void cloner(Groupe grACloner) {
+        if (grACloner != null) {
+            for (Objet object : grACloner.getListeObjets()) {
+                if (object.getClass().equals(Repertoire.class)) {
+                    listeObjets.add(object);
+                }
+            }
+        }
+
+    }
+
+    void ajouterRelation(String str_objet1, String str_objet2, String relation) {
+        Objet ob1 =chercherObjet(str_objet1);
+        Objet ob2 = chercherObjet(str_objet2);
+        ob1.ajouterObjetEnRelationAvec(ob2, relation);
+        ob2.ajouterObjetEnRelationAvec(ob1, relation);
     }
 }

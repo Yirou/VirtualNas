@@ -44,7 +44,6 @@ public class FactoryMembre {
                 break;
 
             case Dsi:
-                System.out.println("yes");
                 membre=new PersonnelDSI(null, null);
                 membre.getListeGroupeAuthoriseACreer().add(TypeGroupe.GroupePerso);
                 membre.getListeGroupeAuthoriseACreer().add(TypeGroupe.GroupeClassique);

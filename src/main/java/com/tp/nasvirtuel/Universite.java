@@ -5,6 +5,7 @@
  */
 package com.tp.nasvirtuel;
 
+import com.tp.nasvirtuel.objets.Objet;
 import com.tp.nasvirtuel.services.Filiere;
 import com.tp.nasvirtuel.services.Formation;
 import com.tp.nasvirtuel.services.Service;
@@ -77,8 +78,14 @@ public class Universite {
         this.listeDesMembres = listeDesMembres;
     }
 
-    public void creerGroupe(String nomGroupe, Membre membreActif, String type) {
+    private void cloneGroupe(String groupeACloner, Groupe groupe, Membre membreActif) {
+        Groupe grACloner = chercherGroupe(groupeACloner);
+        membreActif.clonerGroupe(grACloner, groupe);
+    }
+
+    public void creerGroupe(String nomGroupe, Membre membreActif, String type, String groupeACloner) {
         Groupe groupe1 = membreActif.creerGroupe(listeGroupeDisponible.size() + 1, nomGroupe, 0, type);
+        cloneGroupe(groupeACloner, groupe1, membreActif);
         misAjourGroupes(groupe1);
     }
 
@@ -169,7 +176,7 @@ public class Universite {
 
     public void genererEtudiantEtChercheur() {
         Filiere filiere = chercherFiliere("informatique");
-        Formation formation=filiere.chercherFormation("STIC");
+        Formation formation = filiere.chercherFormation("STIC");
         FactoryMembre factoryMembre = FactoryMembre.getInstance();
         Membre membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
         membre.setGroupeParDefaut(etudiantGroupe);
@@ -177,7 +184,7 @@ public class Universite {
         listeDesMembres.add(membre);
         etudiantGroupe.ajouterMembre(membre);
         filiere.getListeMembre().add(membre);
-        formation.getListeEtudiant().add((Etudiant)membre);
+        formation.getListeEtudiant().add((Etudiant) membre);
 
         membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
         membre.setGroupeParDefaut(etudiantGroupe);
@@ -185,7 +192,7 @@ public class Universite {
         listeDesMembres.add(membre);
         etudiantGroupe.ajouterMembre(membre);
         filiere.getListeMembre().add(membre);
-        formation.getListeEtudiant().add((Etudiant)membre);
+        formation.getListeEtudiant().add((Etudiant) membre);
 
         filiere = chercherFiliere("Math-Physique");
         membre = factoryMembre.creerMembre(TypeMembre.Etudiant);
@@ -206,8 +213,8 @@ public class Universite {
         membre.setNom("Christophe");
         listeDesMembres.add(membre);
         chercheurGroupe.ajouterMembre(membre);
-        formation.getListeEnseignant().add((Chercheur)membre);
-        
+        formation.getListeEnseignant().add((Chercheur) membre);
+
         membre = factoryMembre.creerMembre(TypeMembre.Chercheur);
         membre.setGroupeParDefaut(chercheurGroupe);
         membre.setNom("Christine");
@@ -263,10 +270,13 @@ public class Universite {
     }
 
     public Formation deployerMembres(String nomFilere, String nomFormation) {
-       Filiere filiere=chercherFiliere(nomFilere);
-       return filiere.chercherFormation(nomFormation);
+        Filiere filiere = chercherFiliere(nomFilere);
+        return filiere.chercherFormation(nomFormation);
     }
 
-  
+    public void relierDocument(String str_groupe, String str_objet1, String str_objet2, String relation) {
+        Groupe groupe = chercherGroupe(str_groupe);
+        groupe.ajouterRelation(str_objet1, str_objet2, relation);
+    }
 
 }
